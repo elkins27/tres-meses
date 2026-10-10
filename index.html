@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#ffd9e2">
+  <title>Tres Meses Contigo ❤️</title>
+
+  <!-- Fuentes opcionales de Google Fonts. Si no cargan, la página usa fuentes del sistema. -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Dancing+Script:wght@600;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- ======= SPRITE SVG: dibujos originales reutilizables (kawaii) ======= -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <defs>
+      <!-- Corazón -->
+      <symbol id="s-heart" viewBox="-1 -1 34 31">
+        <path d="M16 28C4 18 0 12 0 8a8 8 0 0 1 16-3 8 8 0 0 1 16 3c0 4-4 10-16 20z" fill="#e63e5c" stroke="#b81e3c" stroke-width="1.5" stroke-linejoin="round"/>
+        <path d="M7 7q2-3 5-2" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" opacity=".7"/>
+      </symbol>
+
+      <!-- Perrito beagle blanco con oreja negra (inspirado, dibujo original) -->
+      <symbol id="s-dog" viewBox="0 0 100 100">
+        <ellipse cx="46" cy="80" rx="24" ry="17" fill="#fff" stroke="#3b2a30" stroke-width="3"/>
+        <ellipse cx="46" cy="42" rx="27" ry="24" fill="#fff" stroke="#3b2a30" stroke-width="3"/>
+        <ellipse cx="74" cy="48" rx="15" ry="11" fill="#fff" stroke="#3b2a30" stroke-width="3"/>
+        <ellipse cx="62" cy="46" rx="12" ry="14" fill="#fff"/>
+        <ellipse cx="25" cy="44" rx="9" ry="19" fill="#2b2024" transform="rotate(10 25 44)"/>
+        <circle cx="60" cy="38" r="3" fill="#2b2024"/>
+        <ellipse cx="85" cy="44" rx="6.5" ry="5" fill="#2b2024"/>
+        <path d="M70 55q5 4 10 0" fill="none" stroke="#2b2024" stroke-width="2" stroke-linecap="round"/>
+        <ellipse cx="52" cy="50" rx="5" ry="3" fill="#ffb3c6" opacity=".85"/>
+      </symbol>
+
+      <!-- Pajarito amarillo (inspirado, dibujo original) -->
+      <symbol id="s-bird" viewBox="0 0 60 60">
+        <path d="M26 14l-3-8M30 13V4M34 14l3-8" stroke="#8a5a1c" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+        <path d="M24 53v4M36 53v4" stroke="#ff9a3c" stroke-width="2.5" stroke-linecap="round"/>
+        <path d="M12 34q-7 3-8 10 7 0 10-6z" fill="#ffc933" stroke="#8a5a1c" stroke-width="2" stroke-linejoin="round"/>
+        <path d="M48 34q7 3 8 10-7 0-10-6z" fill="#ffc933" stroke="#8a5a1c" stroke-width="2" stroke-linejoin="round"/>
+        <circle cx="30" cy="34" r="19" fill="#ffd84d" stroke="#8a5a1c" stroke-width="2.5"/>
+        <circle cx="23" cy="30" r="2.4" fill="#3b2a30"/>
+        <circle cx="37" cy="30" r="2.4" fill="#3b2a30"/>
+        <path d="M26 35l4 4 4-4z" fill="#ff9a3c" stroke="#c76a12" stroke-width="1.5" stroke-linejoin="round"/>
+        <ellipse cx="16" cy="38" rx="4" ry="2.5" fill="#ffb3c6" opacity=".85"/>
+        <ellipse cx="44" cy="38" rx="4" ry="2.5" fill="#ffb3c6" opacity=".85"/>
+      </symbol>
+
+      <!-- Florcita -->
+      <symbol id="s-flower" viewBox="0 0 40 60">
+        <path d="M20 26V58" stroke="#5fae6b" stroke-width="3" stroke-linecap="round"/>
+        <ellipse cx="28" cy="44" rx="8" ry="4" fill="#8fd19a" stroke="#5fae6b" stroke-width="1.5" transform="rotate(-25 28 44)"/>
+        <g fill="#ffb3c6" stroke="#e0708f" stroke-width="1.5">
+          <circle cx="20" cy="9" r="6.5"/><circle cx="28.6" cy="15.2" r="6.5"/>
+          <circle cx="25.3" cy="25.3" r="6.5"/><circle cx="14.7" cy="25.3" r="6.5"/>
+          <circle cx="11.4" cy="15.2" r="6.5"/>
+        </g>
+        <circle cx="20" cy="18" r="5.5" fill="#ffd84d" stroke="#e0a800" stroke-width="1.5"/>
+      </symbol>
+    </defs>
+  </svg>
+
+  <!-- Capas de efectos -->
+  <div class="fx" id="fx-bg" aria-hidden="true"></div>
+  <div class="fx fx-top" id="fx-top" aria-hidden="true"></div>
+
+  <!-- Reproductor de música -->
+  <div class="player" id="player">
+    <button class="player-btn" id="music-btn" type="button" aria-label="Reproducir o pausar la música" aria-pressed="false">
+      <span class="player-icon" aria-hidden="true">🎵</span>
+      <span class="bars" aria-hidden="true"><i></i><i></i><i></i></span>
+    </button>
+    <p class="player-note" id="music-note" role="status" aria-live="polite" hidden></p>
+  </div>
+  <audio id="bg-audio" loop preload="none" src="assets/audio/musica.mp3"></audio>
+
+  <main>
+    <!-- =================== PANTALLA INICIAL: EL SOBRE =================== -->
+    <section class="screen intro" id="intro" aria-label="Sobre de amor">
+      <h1 class="intro-title fade-target">Para la niña más hermosa de mi mundo ❤️</h1>
+
+      <div class="env-wrap">
+        <div class="envelope" id="envelope" aria-hidden="true">
+          <div class="env-back"></div>
+          <div class="env-paper"><span>💌</span></div>
+          <div class="env-front"></div>
+          <div class="env-flap"></div>
+          <div class="env-seal">❤</div>
+        </div>
+
+        <!-- Sticker pequeño cerca del sobre -->
+        <div class="sticker st-intro" data-img="assets/images/stickers/woodstock-corazones.png" aria-hidden="true">
+          <svg viewBox="0 0 120 120"><use href="#s-bird" x="22" y="26" width="76" height="76"/><use href="#s-heart" x="6" y="14" width="18" height="16"/><use href="#s-heart" x="94" y="6" width="14" height="13"/><use href="#s-heart" x="96" y="50" width="12" height="11"/></svg>
+        </div>
+        <span class="pill-sticker ps-intro" aria-hidden="true">muak muak</span>
+      </div>
+
+      <p class="intro-sub fade-target">Hoy tengo un pequeño regalo para ti, mi amorcito... 🥹💗</p>
+      <p class="intro-question fade-target">¿Quieres abrir el sobre, mi niña hermosa? 💌</p>
+
+      <div class="actions fade-target" id="actions">
+        <button class="btn btn-yes" id="btn-yes" type="button">SÍÍÍ, ABRIR 💖</button>
+        <button class="btn btn-no" id="btn-no" type="button">NO 🙈</button>
+      </div>
+      <p class="no-msg fade-target" id="no-msg" role="status" aria-live="polite"></p>
+    </section>
+
+    <!-- =================== CARTA + FINAL =================== -->
+    <section class="letter-screen" id="letter-screen" hidden>
+      <div class="letter-wrap">
+        <article class="paper" id="letter">
+
+          <!-- Stickers de las esquinas -->
+          <div class="sticker st-corner-tr" data-img="assets/images/stickers/snoopy-corazon.png" aria-hidden="true">
+            <svg viewBox="0 0 120 120"><use href="#s-dog" x="8" y="2" width="104" height="104"/>
+              <ellipse cx="34" cy="92" rx="9" ry="6" fill="#fff" stroke="#3b2a30" stroke-width="2.5"/>
+              <ellipse cx="86" cy="92" rx="9" ry="6" fill="#fff" stroke="#3b2a30" stroke-width="2.5"/>
+              <use href="#s-heart" x="36" y="68" width="48" height="44"/></svg>
+          </div>
+          <div class="sticker st-corner-bl" data-img="assets/images/stickers/snoopy-flores.png" aria-hidden="true">
+            <svg viewBox="0 0 120 120"><use href="#s-flower" x="4" y="58" width="28" height="44"/><use href="#s-dog" x="8" y="2" width="104" height="104"/><use href="#s-flower" x="72" y="52" width="36" height="54"/><use href="#s-heart" x="92" y="10" width="16" height="14"/></svg>
+          </div>
+
+          <div class="garland" aria-hidden="true">🎀 ⭐ 🌸 💌 🌸 ⭐ 🎀</div>
+
+          <header class="letter-head reveal">
+            <h2 class="letter-title">Felices 3 mesecitos, mi Juleisitaa. 💗</h2>
+          </header>
+
+          <div class="letter-body">
+            <p class="reveal">Mi amooor, hoy es un día muy especial, porque hace tres meses comenzamos a escribir nuestra historia de novios. Y qué bonitooo es recordar todo lo que hemos vivido desde entonces y darme cuenta de que, entre tantas cositas que pasan en mis días, tú te has convertido en alguien a quien quiero cuidar, hacer feliz y tener en mi corazón.</p>
+
+            <p class="reveal">Llegaste tú, con tu forma de ser, tus ocurrencias, tus enojos y todas esas cositas que son propias de ti mi niña.💗 Todavía tenemos tantas cosas por conocer el uno del otro y tantas experiencias que algún día podremos recordar. Siento que estos tres mesecitos son apenas una pequeña parte de todo lo que podemos aprender juntos.</p>
+
+            <!-- Única fotografía: marco Polaroid -->
+            <figure class="polaroid reveal" id="polaroid">
+              <span class="pill-sticker ps-photo" aria-hidden="true">te amooo muchotee</span>
+              <div class="photo-slot">
+                <img src="assets/images/nuestra-foto.jpeg" alt="Nuestra foto juntos" id="our-photo" decoding="async">
+                <div class="photo-missing">
+                  <span aria-hidden="true">📸</span>
+                  <small>Aquí va nuestra foto.<br>Guárdala como<br><code>assets/images/nuestra-foto.jpg</code></small>
+                </div>
+              </div>
+              <figcaption>Uno de mis recuerdos favoritos, porque en él estás tú. ❤️</figcaption>
+            </figure>
+
+            <p class="reveal">Y sabess. Yo sé que querernos no significa que todos los días van a ser bonitos ni que siempre vamos a pensar igual. Puede que a veces no sepamos qué decir, que algo nos duela o que terminemos teniendo un día complicado que nos haga sentir mal.</p>
+
+            <p class="reveal">Y cuando eso pase, quiero que puedas contarme lo que te sucede, decirme cuando algo te lastime y expresarme lo que sientes. Quiero entender la situacion, entenderte a tii para que estemos bienn.</p>
+
+            <p class="reveal">También reconocer que hay cosas en las que podemos mejorar. No quiero quedarme solamente con decir cosas bonitas, <mark class="hl">quiero que sean las acciones que hablen por nosotros.</mark></p>
+
+            <p class="reveal">Quiero que aprendamos a solucionar las cositas sin lastimarnos, que sepamos reconocer nuestros errores y estemos bien.</p>
+
+            <p class="reveal">Como lo he dicho no espero que nuestra relación sea perfecta, porque sé que eso no existe. Lo que deseo es que sea una relación en la que ambos estemos bien y felices, tener la tranquilidad de que podemos hablar de lo que nos pasa.</p>
+
+            <p class="reveal">Mi Juleisitaa, <mark class="hl">quiero estar contigo, a tu lado en cualquier momento</mark> ya sea en los momentos buenoss como en los malos 💗</p>
+
+            <!-- Nota pegada (puedes cambiar la frase o borrar este bloque) -->
+            <aside class="note reveal">
+              <p>Que nuestro cariño no dependa de tener siempre un día perfecto, sino que sepamos sobrellevar las cosas de una manera buena.</p>
+            </aside>
+
+            <p class="reveal">Quería que tuvieras un detallito al que puedas volver cuando quieras recordar esta etapa nuestra. Ojalá que cuando lo abras sientas, aunque sea por un ratito, un poquito de todo el cariño con el que pensé en ti mientras hacía esto.</p>
+
+            <p class="reveal">Felices tres meses, mi niña hermosaa. 💗 Que sigamos sumando meses, querernos y amarnos cada vez mashh.</p>
+
+            <p class="last-line reveal">Te amoo muchísimooo, mi Juleisitaa. 💗</p>
+
+            <div class="signature reveal">
+              <p>Con muchísimo cariño,</p>
+              <p class="signature-name">Elquin 💌💗</p>
+            </div>
+          </div>
+        </article>
+
+        <!-- =================== FINAL ROMÁNTICO =================== -->
+        <section class="final" id="final" aria-label="Final">
+          <div class="final-hearts" id="final-hearts" aria-hidden="true"></div>
+
+          <div class="sticker static" data-img="assets/images/stickers/woodstock-corazones.png" aria-hidden="true">
+            <svg viewBox="0 0 120 120"><use href="#s-bird" x="22" y="26" width="76" height="76"/><use href="#s-heart" x="6" y="14" width="18" height="16"/><use href="#s-heart" x="94" y="6" width="14" height="13"/><use href="#s-heart" x="96" y="50" width="12" height="11"/></svg>
+          </div>
+          <span class="pill-sticker ps-final" aria-hidden="true">besito para ti</span>
+
+          <blockquote class="love-quote reveal">
+            <span class="lq-mark" aria-hidden="true">“</span>
+            <p class="lq-intro">Y si hay mas vidass,</p>
+            <p class="lq-line">volvería a encontrarte a ti,</p>
+            <p class="lq-line">volvería a elegirte</p>
+            <p class="lq-line">y volvería a enamorarme</p>
+            <p class="lq-outro">de esa personita tan hermosa que eres. ❤️</p>
+            <span class="lq-divider" aria-hidden="true">💗 ✦ 💗</span>
+          </blockquote>
+
+          <p class="final-thanks reveal">Felices 3 meses mi amoor. Quiero seguir construyendo recuerdos superr bonitos. 💗</p>
+
+          <p class="made-with reveal">Hecho con todo el amor del mundo para mi niña hermosa. 💌</p>
+
+          <div class="final-actions">
+            <button class="btn btn-soft" id="btn-reread" type="button">Volver a leer la carta 💌</button>
+            <button class="btn btn-soft" id="btn-again" type="button">Ver el sobre otra vez ✨</button>
+          </div>
+        </section>
+      </div>
+    </section>
+  </main>
+
+  <script src="js/script.js"></script>
+</body>
+</html>
